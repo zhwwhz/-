@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 配置分页插件拦截器插件：作用是在执行sql语句之前，将sql语句拦截下来，在sql语句中拼接上limit -->
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 com.github.pagehelper.PageHelper-->
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!-- 设置支持数据库类型 ：目前该分页插件支持Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->
+            <property name="dialect" value="mysql"/>
+        </plugin>
+    </plugins>
+</configuration>

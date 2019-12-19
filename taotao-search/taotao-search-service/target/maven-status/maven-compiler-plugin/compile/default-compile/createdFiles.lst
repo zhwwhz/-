@@ -1,0 +1,5 @@
+com\taotao\search\Test\test.class
+com\taotao\search\impl\searchItemImpl.class
+com\taotao\search\mapper\Searchmapper.class
+com\taotao\search\Dao\SearchDao.class
+com\taotao\search\ActiveMqListen\ItemByMessageLister.class

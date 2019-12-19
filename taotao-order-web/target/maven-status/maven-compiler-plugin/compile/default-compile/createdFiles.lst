@@ -1,0 +1,4 @@
+com\taotao\order\controller\userLoginCeptor.class
+com\taotao\order\JedisClientPool.class
+com\taotao\order\controller\OrderController.class
+com\taotao\order\JedisClient.class

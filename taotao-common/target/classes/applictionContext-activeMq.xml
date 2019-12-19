@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+    <!--配置工厂对象-->
+    <bean name="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://39.108.185.153:61616" />
+    </bean>
+    <!--配置Spring自定义的工厂对象,引用上面的工厂对象
+    此处的作用是为了以后如果工厂对象改成了kafuka等中间件以后改动的地方不多-->
+    <bean name="SingleConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="activeMQConnectionFactory" />
+    </bean>
+    <!--配置接收和发送消息需要用到的模板类-->
+    <bean class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="SingleConnectionFactory"></property>
+    </bean>
+    <!--配置Queue-->
+    <bean name="queue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg name="name" value="item-queuw-change" />
+    </bean>
+
+    <!--配置监听器-->
+    <bean name="listener" class="com.activeMQ.MyMessageListener"></bean>
+
+    <!--配置监听器的容器：作用是启动线程做监听-->
+    <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <!--配置连接的地址-->
+        <property name="connectionFactory" ref="activeMQConnectionFactory" />
+        <!--配置该地址下的哪个MQ-->
+        <property name="destination" ref="queue" />
+        <!--配置监听-->
+        <property name="messageListener" ref="listener" />
+    </bean>
+</beans>

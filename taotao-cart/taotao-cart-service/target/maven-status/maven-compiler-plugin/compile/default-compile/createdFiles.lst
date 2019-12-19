@@ -1,0 +1,3 @@
+com\taotao\cart\impl\jedis\JedisClient.class
+com\taotao\cart\impl\CartFotInterImlp.class
+com\taotao\cart\impl\jedis\JedisClientPool.class

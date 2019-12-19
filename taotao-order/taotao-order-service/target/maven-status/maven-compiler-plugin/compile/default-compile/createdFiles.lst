@@ -1,0 +1,3 @@
+com\taotao\order\impl\jedis\JedisClientPool.class
+com\taotao\order\impl\OrderImpl.class
+com\taotao\order\impl\jedis\JedisClient.class
